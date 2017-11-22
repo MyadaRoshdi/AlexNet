@@ -10,10 +10,11 @@ from scipy.misc import imread
 from caffe_classes import class_names
 from alexnet import AlexNet
 
-x = tf.placeholder(tf.float32, (None, 32, 32, 3))
+#x = tf.placeholder(tf.float32, (None, 32, 32, 3))
+x = tf.placeholder(tf.float32, (None, 227, 227, 3))
 # TODO: Resize the images so they can be fed into AlexNet.
 # HINT: Use `tf.image.resize_images` to resize the images
-resized = ...
+resized =tf.image.resize_images(x, [227, 227])
 
 assert resized is not Ellipsis, "resized needs to modify the placeholder image size to (227,227)"
 probs = AlexNet(resized)
@@ -25,6 +26,7 @@ sess.run(init)
 # Read Images
 im1 = imread("construction.jpg").astype(np.float32)
 im1 = im1 - np.mean(im1)
+
 
 im2 = imread("stop.jpg").astype(np.float32)
 im2 = im2 - np.mean(im2)
